@@ -1,0 +1,42 @@
+html 
+    head 
+        title Vulnerabilities
+        style 
+            include ../public/style.css
+        script 
+            include ../public/script.js
+            
+    body
+        h1 Vulnerabilities
+
+        h2 Cross-site scripting
+        p Cross-site scripting or XSS is ...
+        -var s1 = "<script>alert('XSS test');</script>"
+        -var s2 = "<script>alert(document.cookie);</script>"
+        -var s3 = "<script>document.location.href='http://www.google.com';</script>"
+        p(class="p") Primjeri:
+        ul
+            li #{s1}
+            li #{s2}
+            li #{s3}
+        form(action="/xss" method="POST" name="scripting" onsubmit="func()")
+            label(for="enableAccess") Enable cross-site scripting
+            input(type="checkbox", name="enableScripting" value="Enable" id="enableScripting")
+            p Input your XSS script here
+            input(type="text" id="scriptingText" name="scriptingText")
+            button(type="submit") Submit
+        if check
+            div(id="input") Your input: #{input} !{input}
+        else 
+            div(id="input") Your input: #{input}
+
+        br
+        br
+
+        h2 Broken access control
+        p Broken access control is ...
+
+        input(type="checkbox", name="enableAccess" value="Enable" id="enableAccess")
+        label(for="enableAccess") Enable broken access control
+        br
+        a(href='/admin') Admin page
