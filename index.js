@@ -5,8 +5,6 @@ const port = 3000;
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('pug', require('pug').__express)
 app.set("views", path.join(__dirname, "views"));
@@ -18,8 +16,6 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
   res.cookie('role', 'user')
   //console.log(req.cookies)
-  if(req.cookies.cookie)
-    console.log(req.cookies.cookie.split("=")[1])
 
   res.render('index');
 });
@@ -36,7 +32,7 @@ app.post('/xss', (req, res) => {
 app.get('/admin', (req, res) => {
   //console.log(req.cookies)
   if (req.cookies.role === "user") {
-    res.render('error')
+    res.render('error');
   } else if (req.cookies.role === "admin") {
     res.render('admin');
   }

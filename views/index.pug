@@ -1,42 +1,56 @@
+doctype html
 html 
     head 
-        title Vulnerabilities
+        title Ranjivosti
         style 
             include ../public/style.css
         script 
             include ../public/script.js
             
     body
-        h1 Vulnerabilities
+        h1 Ranjivosti
 
-        h2 Cross-site scripting
-        p Cross-site scripting or XSS is ...
+        h2 Cross-site scripting (XSS)
+        p(class="text")
+            | Ovo je primjer XSS ili cross-site scripting napada, specifičnije lokalni tip, tj. DOM XSS napad, koji mijenja DOM koji klijent vidi,
+            br
+            | kod koji potom postaje dio stranice.
+            br
+            br
+            strong Upute: 
+            | U formu ispod upišite jedan od od prikazanih primjera kako bi vidjeli kako funkcionira. 
+            br
+            | Kako bi se omogućila ranjivost morate je omogućiti pomoću checkbox-a.
         -var s1 = "<script>alert('XSS test');</script>"
         -var s2 = "<script>alert(document.cookie);</script>"
         -var s3 = "<script>document.location.href='http://www.google.com';</script>"
-        p(class="p") Primjeri:
+        p(class="p") 
+            strong Primjeri:
         ul
             li #{s1}
             li #{s2}
             li #{s3}
-        form(action="/xss" method="POST" name="scripting" onsubmit="func()")
-            label(for="enableAccess") Enable cross-site scripting
+        form(action="/xss" method="POST" name="scripting")
+            label(for="enableAccess") Omogući cross-site scripting
             input(type="checkbox", name="enableScripting" value="Enable" id="enableScripting")
-            p Input your XSS script here
+            p Upiši svoju XSS skriptu:
             input(type="text" id="scriptingText" name="scriptingText")
-            button(type="submit") Submit
+            div(class="divButton") 
+                button(type="submit") Spremi
         if check
-            div(id="input") Your input: #{input} !{input}
+            div(id="input") Unos: #{input} !{input}
         else 
-            div(id="input") Your input: #{input}
+            div(id="input") Unos: #{input}
 
-        br
-        br
+        h2 Loša kontrola pristupa (Broken access control)
+        p(class="text")
+            | Loša kontrola pristupa omogućava napadaču ili neautoriziranom korisniku pristup funkcionalnostima i uslugama na koje nema pravo.
+            br
+            br
+            strong Upute: 
+            | U ovom primjeru, pritiskom na checkbox, u cookie-u se mijenja role korisnika iz user u admin te tako može pristupiti privilegiranim podatcima.
 
-        h2 Broken access control
-        p Broken access control is ...
-
+        label(for="enableAccess") Omogući broken access control
         input(type="checkbox", name="enableAccess" value="Enable" id="enableAccess")
-        label(for="enableAccess") Enable broken access control
-        br
-        a(href='/admin') Admin page
+        div(class="aDiv")
+            a(href='/admin') Admin stranica

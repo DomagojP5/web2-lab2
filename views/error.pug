@@ -1,6 +1,15 @@
+doctype html
 html 
     head 
         title Broken access control
+        style 
+            include ../public/style.css
+        script.
+            setTimeout(function () {
+                // after 2 seconds
+                window.location = "/";
+            }, 3000)
+
     body
-        a(href='/') Home
-        h1 Error page
+        h1 Error
+        h2 You don't have authorization to view this page, you will be redirected to the home page.
