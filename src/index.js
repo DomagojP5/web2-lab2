@@ -1,9 +1,12 @@
 const express = require('express');
 const path = require('path')
 const app = express();
-const port = 3000;
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
+
+const externalUrl = process.env.RENDER_EXTERNAL_URL;
+const port = externalUrl && process.env.PORT ? parseInt(process.env.PORT) : 3000;
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('pug', require('pug').__express)
@@ -38,6 +41,13 @@ app.get('/admin', (req, res) => {
   }
 })
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
-});
+if (externalUrl) {
+  const hostname = '0.0.0.0'; //ne 127.0.0.1
+  app.listen(port, hostname, () => {
+    console.log(`Server locally running at http://${hostname}:${port}/ and from outside on ${externalUrl}`);
+  });
+} else {
+  app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`);
+  });
+}
