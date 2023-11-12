@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const externalUrl = process.env.RENDER_EXTERNAL_URL;
 const port = externalUrl && process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('pug', require('pug').__express)
 app.set("views", path.join(__dirname, "views"));
